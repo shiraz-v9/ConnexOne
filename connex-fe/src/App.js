@@ -5,11 +5,13 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 function App() {
   const [time, settime] = useState("second");
-  const [epochTime, setEpochTime] = useState(undefined);
-  const [unformattedEpoch, setunformattedEpoch] = useState(undefined);
+  const [epochTime, setEpochTime] = useState();
+  const [unformattedEpoch, setunformattedEpoch] = useState(
+    format(new Date(), "HH:mm:ss")
+  );
   const [currentTime, setCurrentTime] = useState(new Date());
   const [metrics, setmetrics] = useState("second");
-  const [timeDifference, setTimeDifference] = useState(null);
+  const [timeDifference, setTimeDifference] = useState("");
   const [load, setload] = useState(false);
 
   useEffect(() => {
@@ -27,6 +29,7 @@ function App() {
       axios(timeconfig)
         .then(function (response) {
           settime(response.data);
+          setCurrentTime(new Date());
           setunformattedEpoch(new Date(response.data.required[0] * 1000));
           setEpochTime(
             format(new Date(response.data.required[0] * 1000), "HH:mm:ss")
@@ -55,22 +58,26 @@ function App() {
     }
 
     fetchData();
-    const intervalId = setInterval(fetchData, 5 * 1000);
+    const intervalId = setInterval(fetchData, 30 * 1000);
     return () => clearInterval(intervalId);
   }, []);
 
   useEffect(() => {
     const everySecondInterval = setInterval(() => {
+      //   let _currentTime = new Date();
       setCurrentTime(new Date());
-      let _currentTime = new Date();
+      //   const cTime = format(_currentTime, "HH:mm:ss");
 
-      const seconds = differenceInSeconds(unformattedEpoch, new Date());
+      //   setTimeDifference(
+      //     "Epoch " +
+      //       JSON.stringify(epochTime) +
+      //       " Current Time" +
+      //       JSON.stringify(cTime)
+      //   );
+      //   const seconds = differenceInSeconds(cTime, unformattedEpoch);
 
-      const formattedTime = format(new Date(seconds * 1000), "HH:mm:ss");
-
-      console.log("difference", seconds, formattedTime);
-      setTimeDifference(formattedTime);
-    }, 1000);
+      //   const formattedTime = format(new Date(seconds * 1000), "HH:mm:ss");
+    }, 1 * 1000);
 
     return () => clearInterval(everySecondInterval);
   }, []);
@@ -90,9 +97,11 @@ function App() {
               <h3>Current time</h3>
               {format(currentTime, "HH:mm:ss")}
               <h3>Time difference</h3>
-              {timeDifference}
+              {/* {timeDifference} */}
+              {epochTime + " " + format(currentTime, "HH:mm:ss")}
             </section>
             <section className="sec-r">
+              <h3>Metrics</h3>
               <code>{metrics}</code>
             </section>
           </main>
