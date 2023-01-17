@@ -1,17 +1,17 @@
 import { format } from "date-fns";
-import { differenceInSeconds, formatDistanceToNow } from "date-fns";
+// import { differenceInSeconds, formatDistanceToNow } from "date-fns";
 import "./index.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
 function App() {
   const [time, settime] = useState("second");
   const [epochTime, setEpochTime] = useState();
-  const [unformattedEpoch, setunformattedEpoch] = useState(
-    format(new Date(), "HH:mm:ss")
-  );
+  // const [unformattedEpoch, setunformattedEpoch] = useState(
+  //   format(new Date(), "HH:mm:ss")
+  // );
   const [currentTime, setCurrentTime] = useState(new Date());
   const [metrics, setmetrics] = useState("second");
-  const [timeDifference, setTimeDifference] = useState("");
+  // const [timeDifference, setTimeDifference] = useState("");
   const [load, setload] = useState(false);
 
   useEffect(() => {
@@ -30,7 +30,7 @@ function App() {
         .then(function (response) {
           settime(response.data);
           setCurrentTime(new Date());
-          setunformattedEpoch(new Date(response.data.required[0] * 1000));
+          // setunformattedEpoch(new Date(response.data.required[0] * 1000));
           setEpochTime(
             format(new Date(response.data.required[0] * 1000), "HH:mm:ss")
           );
