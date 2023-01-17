@@ -7,7 +7,7 @@ require("dotenv").config();
 app.use(cors());
 
 app.use((req, res, next) => {
-  if (req.headers.authorization !== process.env.auth) {
+  if (req.headers.authorization !== process.env.REACT_APP_AUTH) {
     return res.status(403).send("Forbidden");
   }
   next();

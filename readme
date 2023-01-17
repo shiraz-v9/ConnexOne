@@ -1,0 +1,13 @@
+## Connex One Time & Metrix
+
+### how to run
+
+server can be run with `npm i` and `npm start` , port is set to `4000`
+
+React app is inside a nested folder cd in `connex-fe` , just `npm i` and ready to test on port `3000`
+
+both react app and server js have `env`
+
+this will be provided in the connex-fe folder
+
+any issues -> shiraz.xt@gmail.com
